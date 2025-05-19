@@ -9,22 +9,25 @@ public class Vacuum : MonoBehaviour
     //Force à laquelle l'aspirateur attire des objets
     [SerializeField] byte pullSpeed = 15;
 
+    //Distance à laquelle l'objet doit être avant qu'il soit accroché à l'aspirateur
     private byte captureDistance = 1;
+    private bool capturing = false;
 
     private Rigidbody rbObject;
-    private GameObject cannonOrientation; //Est placé au bout du cannon et le X est positionné vers ou le canon pointe
+    private GameObject cannonOrientation; //Est placé au bout du cannon et le X doit être positionné vers ou le canon pointe
+    private GameObject lockPosition; //L'endroit ou le fantôme sera coincé le temps de la capture
 
     private void Awake()
     {
-        //Recherche CannonOrientation en tant qu'enfant de l'objet et l'applique donc s'assuré qu'il existe bien sinon erreur
-        cannonOrientation = transform.Find("CannonOrientation")?.gameObject;
-        if(cannonOrientation == null)
-        {
-            Debug.LogError("CannonOrientation introuvable!");
-        }
+        assignGameObject();
     }
 
-    //Fonction qui permet d'attirer les objets vers le joueur
+    private void Update()
+    {
+        Capturing();
+    }
+
+    //Fonction qui permet d'attirer les objets vers le joueur (Fantôme ou n'importe quoi qui à un component rigidbody)
     public void Attract()
     {
         RaycastHit hit;
@@ -49,8 +52,36 @@ public class Vacuum : MonoBehaviour
         
     }
 
+    // Fonction qui permet de faire en sorte que lorsque le fantôme à capturer est assez proche il le bloque à une certaine position
     private void CaptureLock()
     {
-        Debug.LogError("Besoin d'implémenter la fonction CaptureLock");
+        //Désactive la physique de l'objet attiré pour empêcher qu'il tombe pendant la capture.
+        rbObject.isKinematic = true;
+        rbObject.detectCollisions = false;
+        capturing = true;
+    }
+
+    private void Capturing()
+    {
+        if (capturing == true && rbObject != null)
+        {
+            Debug.LogWarning("Ajouter une option pour le offset des objets capturés");
+            rbObject.transform.position = lockPosition.transform.position;
+        }
+    }
+
+    private void assignGameObject()
+    {
+        //Recherche CannonOrientation et lockPosition en tant qu'enfant de l'objet et l'applique donc s'assuré qu'il existe bien sinon erreur
+        cannonOrientation = transform.Find("CannonOrientation")?.gameObject;
+        if (cannonOrientation == null)
+        {
+            Debug.LogError("CannonOrientation introuvable!");
+        }
+        lockPosition = transform.Find("LockPosition")?.gameObject;
+        if (lockPosition == null)
+        {
+            Debug.LogError("LockPosition introuvable!");
+        }
     }
 }
