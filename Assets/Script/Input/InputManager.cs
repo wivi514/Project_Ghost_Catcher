@@ -1,11 +1,10 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerMovement))]
 public class InputManager : MonoBehaviour
 {
-    public InputActionAsset InputActions;
+    private InputActionAsset InputActions;
 
     private InputAction moveAction;
     private InputAction shootAction;
