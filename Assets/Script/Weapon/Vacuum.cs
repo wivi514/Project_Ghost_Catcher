@@ -1,13 +1,11 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Vacuum : MonoBehaviour
 {
     [Header("Vacuum stats")]
-    //Distance maximal que l'aspirateur peut atteindre
+    [Tooltip("Distance maximal que l'aspirateur peut atteindre")]
     [SerializeField] byte range = 15;
-    //Force à laquelle l'aspirateur attire des objets
+    [Tooltip("Force à laquelle l'aspirateur attire des objets")]
     [SerializeField] byte pullSpeed = 15;
 
     //Distance à laquelle l'objet doit être avant qu'il soit accroché à l'aspirateur

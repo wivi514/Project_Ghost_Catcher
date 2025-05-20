@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a61928ff909ab47a422c5d79d57b3f, type: 3}
   m_Name: EnemyTest
   m_EditorClassIdentifier: 
+  ghostName: 
   timeToCapture: 5
   positionOffSet: {x: 0, y: 0, z: 1.4}
+  captureMinigames: 
