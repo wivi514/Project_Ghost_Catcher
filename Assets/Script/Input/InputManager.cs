@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerMovement))]
 public class InputManager : MonoBehaviour
 {
-    private InputActionAsset InputActions;
+    [SerializeField] private InputActionAsset InputActions;
 
     private InputAction moveAction;
     private InputAction shootAction;

@@ -1132,8 +1132,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vacuumableObject: {fileID: 11400000, guid: c6d6c2e5d09a3134fbd11590a3fcc2ec, type: 2}
-  timeToCapture: 0
-  positionOffSet: {x: 0, y: 0, z: 0}
 --- !u!1 &1932981897
 GameObject:
   m_ObjectHideFlags: 0

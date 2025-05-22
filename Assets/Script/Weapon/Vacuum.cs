@@ -13,7 +13,6 @@ public class Vacuum : MonoBehaviour
     private bool capturing = false;
 
     private Rigidbody rbObject;
-    private EnemyStats enemyStats;
     private GameObject cannonOrientation; //Est placé au bout du cannon et le X doit être positionné vers ou le canon pointe
     private GameObject lockPosition; //L'endroit ou le fantôme sera coincé le temps de la capture
 
@@ -34,7 +33,6 @@ public class Vacuum : MonoBehaviour
         if(Physics.Raycast(cannonOrientation.transform.position, cannonOrientation.transform.forward, out hit, range)) //Lance un raycast ou l'arme pointe
         {
             rbObject = hit.collider.GetComponent<Rigidbody>();
-            enemyStats = hit.collider.GetComponent<EnemyStats>();
             if (rbObject != null) // S'assure qu'il y a un objet à attirer
             {
                 Vector3 pullDirection = (cannonOrientation.transform.position - hit.transform.position).normalized; // Calcule la direction que l'objet doit aller pour aller vers l'aspirateur
