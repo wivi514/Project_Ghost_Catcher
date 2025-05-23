@@ -42,7 +42,7 @@ public class InputManager : MonoBehaviour
         if (shootAction.IsPressed())
         {
             vacuum.Attract();
-            Debug.LogWarning("Changer pour que ça soit le souffle du patient plutôt qu'une touche");
+            Debug.LogWarning("Changer pour que ça soit l'inspiration du patient plutôt qu'une touche");
         }
     }
 
@@ -59,9 +59,16 @@ public class InputManager : MonoBehaviour
         shootAction = InputSystem.actions.FindAction("Attack");
     }
 
+    #region cursor
     private void HideCursor()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
     }
+
+    private void ShowCursor()
+    {
+        Cursor.visible = true;
+    }
+    #endregion
 }
