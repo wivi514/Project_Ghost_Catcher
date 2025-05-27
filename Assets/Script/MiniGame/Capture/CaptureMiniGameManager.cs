@@ -10,12 +10,19 @@ public class CaptureMiniGameManager : MonoBehaviour
         {
             case CaptureMinigameType.Resistance:
                 Debug.LogWarning("Ajouter mini jeu Resistance");
+                minigame = ghost.AddComponent<ResistanceMinigame>();
                 break;
             case CaptureMinigameType.TargetingTrap:
-                Debug.LogWarning("Ajouter mini jeu Targeting Trap");
+                // À ajouter
+                //minigame = ghost.AddComponent<TargetingTrapMiniGame>();
+                Debug.LogWarning("Ajouter TargetingTrapMiniGame");
                 break;
         }
 
-        minigame?.Init(data, ghost);
+        //Si le minigame n'est pas null lance le mini-jeu de capture
+        if (minigame != null)
+        {
+            minigame.Init(data, ghost);
+        }
     }
 }
