@@ -15,4 +15,8 @@ MonoBehaviour:
   ghostName: 
   timeToCapture: 5
   positionOffSet: {x: 0, y: 0, z: 1.4}
-  captureMinigames: 
+  requireFlash: 0
+  captureMinigames:
+  - captureMinigameType: 0
+    duration: 5
+    description: 

@@ -11,18 +11,19 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        //Gèle les rotation X et Z dans le cas ou elle n'ont pas été cocher dans rigidbody
-        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        //Gèle les rotation Z dans le cas ou elle n'ont pas été cocher dans rigidbody
+        rb.constraints = RigidbodyConstraints.FreezeRotationZ;
     }
 
     public void Move(float xMoveAmt, float yMoveAmt, Camera camera)
     {
         Vector3 cameraForward = camera.transform.forward;
         Vector3 cameraRight = camera.transform.right;
-        cameraForward.y = 0f;
-        cameraRight.y = 0f;
 
         LookRotation(cameraForward);
+
+        cameraForward.y = 0f;
+        cameraRight.y = 0f;
 
         Vector3 moveDirection = cameraForward.normalized * yMoveAmt + cameraRight.normalized * xMoveAmt;
 

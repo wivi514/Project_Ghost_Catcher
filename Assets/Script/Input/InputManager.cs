@@ -14,7 +14,7 @@ public class InputManager : MonoBehaviour
     private Vacuum vacuum;
     [SerializeField] Vacuum vacuumFlatScreen;
     [SerializeField] Vacuum vacuumVR;
-    private Camera playerCamera;
+    [SerializeField] Camera flatscreenPlayerCamera;
 
     private bool isVR;
 
@@ -35,7 +35,6 @@ public class InputManager : MonoBehaviour
         //Trouve la caméra et prend le component player movement si le joueur n'est pas en vr
         if (isVR == false)
         {
-            playerCamera = Camera.main;
             vacuum = vacuumFlatScreen;
             HideCursor();
         }
@@ -67,7 +66,7 @@ public class InputManager : MonoBehaviour
         if (isVR == false)
         {
             //Movement du joueur (WASD ou stick)
-            playerMovement.Move(m_moveAmt.x, m_moveAmt.y, playerCamera);
+            playerMovement.Move(m_moveAmt.x, m_moveAmt.y, flatscreenPlayerCamera);
         }
     }
 

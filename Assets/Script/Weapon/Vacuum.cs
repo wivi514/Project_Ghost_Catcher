@@ -29,26 +29,28 @@ public class Vacuum : MonoBehaviour
     //Fonction qui permet d'attirer les objets vers le joueur (Fantôme ou n'importe quoi qui à un component rigidbody)
     public void Attract()
     {
-        RaycastHit hit;
-        if(Physics.Raycast(cannonOrientation.transform.position, cannonOrientation.transform.forward, out hit, range)) //Lance un raycast ou l'arme pointe
+        if (capturing != true)
         {
-            rbObject = hit.collider.GetComponent<Rigidbody>();
-            if (rbObject != null) // S'assure qu'il y a un objet à attirer
+            RaycastHit hit;
+            if (Physics.Raycast(cannonOrientation.transform.position, cannonOrientation.transform.forward, out hit, range)) //Lance un raycast ou l'arme pointe
             {
-                Vector3 pullDirection = (cannonOrientation.transform.position - hit.transform.position).normalized; // Calcule la direction que l'objet doit aller pour aller vers l'aspirateur
-                float distanceToVacuum = Vector3.Distance(hit.transform.position, cannonOrientation.transform.position); //Calcule la distance entre l'objet et l'aspirateur pour savoir quand il doit entrer en mode capture
+                rbObject = hit.collider.GetComponent<Rigidbody>();
+                if (rbObject != null) // S'assure qu'il y a un objet à attirer
+                {
+                    Vector3 pullDirection = (cannonOrientation.transform.position - hit.transform.position).normalized; // Calcule la direction que l'objet doit aller pour aller vers l'aspirateur
+                    float distanceToVacuum = Vector3.Distance(hit.transform.position, cannonOrientation.transform.position); //Calcule la distance entre l'objet et l'aspirateur pour savoir quand il doit entrer en mode capture
 
-                if (distanceToVacuum > captureDistance)
-                {
-                    rbObject.AddForce(pullDirection * (pullSpeed / rbObject.mass) * Time.deltaTime, ForceMode.VelocityChange); // Attire l'objet vers le joueur
-                }
-                else
-                {
-                    CaptureLock();
+                    if (distanceToVacuum > captureDistance)
+                    {
+                        rbObject.AddForce(pullDirection * (pullSpeed / rbObject.mass) * Time.deltaTime, ForceMode.VelocityChange); // Attire l'objet vers le joueur
+                    }
+                    else
+                    {
+                        CaptureLock();
+                    }
                 }
             }
         }
-        
     }
 
     // Fonction qui permet de faire en sorte que lorsque le fantôme à capturer est assez proche il le bloque à une certaine position
@@ -60,6 +62,7 @@ public class Vacuum : MonoBehaviour
         capturing = true;
     }
 
+    //Accroche l'objet au bout de l'arme lorsqu'il est assez prêt pour la capture
     private void Capturing()
     {
         if (capturing == true && rbObject != null)
