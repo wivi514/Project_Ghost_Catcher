@@ -14,7 +14,9 @@ public class VacuumableObject : ScriptableObject
 
     // Pour ajouter plus de mini-jeux allez dans Assets/Scripts/Enum et sélectionner CaptureMinigameType.cs
     [Header("Mini-jeu de capture")]
+    [Tooltip("Si le joueur doit utiliser le flash pour permettre la capture du fantôme")]
+    public bool requireFlash;
     [Tooltip("Seulement ajouter les mini-jeux une seul fois par mini-jeu " +
         "il ne seront pas choisi par ordre dans la liste mais aléatoirement selon ce qu'il y a dans la liste")]
-    public List<CaptureMinigameType> captureMinigames;
+    public List<CaptureMinigameData> captureMinigames;
 }
