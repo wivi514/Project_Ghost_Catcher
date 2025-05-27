@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Management;
 
-[RequireComponent(typeof(PlayerMovement))]
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private InputActionAsset InputActions;
@@ -10,9 +10,13 @@ public class InputManager : MonoBehaviour
     private InputAction shootAction;
 
     private Vector2 m_moveAmt;
-    private PlayerMovement playerMovement;
+    [SerializeField] PlayerMovement playerMovement;
     private Vacuum vacuum;
+    [SerializeField] Vacuum vacuumFlatScreen;
+    [SerializeField] Vacuum vacuumVR;
     private Camera playerCamera;
+
+    private bool isVR;
 
     private void OnEnable()
     {
@@ -26,17 +30,29 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        playerCamera = Camera.main;
-        playerMovement = GetComponent<PlayerMovement>();
-        vacuum = transform.Find("Vacuum")?.GetComponent<Vacuum>();
+        //Regarde si le joueur est en vr lorsque le jeu est lancé
+        isVR = XRGeneralSettings.Instance.Manager.isInitializationComplete;
+        //Trouve la caméra et prend le component player movement si le joueur n'est pas en vr
+        if (isVR == false)
+        {
+            playerCamera = Camera.main;
+            vacuum = vacuumFlatScreen;
+            HideCursor();
+        }
+        else
+        {
+            vacuum = vacuumVR;
+        }
         FindAction();
-        HideCursor();
     }
 
     private void Update()
     {
-        //Lit la valeur de mouvement de l'input "Move"
-        m_moveAmt = moveAction.ReadValue<Vector2>();
+        if (isVR == false)
+        {
+            //Lit la valeur de mouvement de l'input "Move"
+            m_moveAmt = moveAction.ReadValue<Vector2>();
+        }
 
         //Lorsque le joueur maintien la touche pour tirer
         if (shootAction.IsPressed())
@@ -48,8 +64,11 @@ public class InputManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Movement du joueur (WASD ou stick)
-        playerMovement.Move(m_moveAmt.x, m_moveAmt.y, playerCamera);
+        if (isVR == false)
+        {
+            //Movement du joueur (WASD ou stick)
+            playerMovement.Move(m_moveAmt.x, m_moveAmt.y, playerCamera);
+        }
     }
 
     //Assigne les InputAction de Unity Input System
