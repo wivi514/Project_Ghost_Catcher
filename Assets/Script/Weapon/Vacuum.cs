@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Vacuum : MonoBehaviour
 {
+    [Header("Game Manager")]
+    [SerializeField] GameManager gameManager;
+
     [Header("Vacuum stats")]
     [Tooltip("Distance maximal que l'aspirateur peut atteindre")]
     [SerializeField] byte range = 15;
@@ -13,11 +16,17 @@ public class Vacuum : MonoBehaviour
     private bool capturing = false;
 
     private Rigidbody rbObject;
-    private GameObject cannonOrientation; //Est placé au bout du cannon et le X doit être positionné vers ou le canon pointe
+    [HideInInspector]
+    public GameObject cannonOrientation; //Est placé au bout du cannon et le X doit être positionné vers ou le canon pointe
     private GameObject lockPosition; //L'endroit ou le fantôme sera coincé le temps de la capture
 
     private void Awake()
     {
+        if (gameManager == null)
+        {
+            Debug.LogWarning($"Assigner la référence à GameManager sur {TransformUtils.GetFullPath(this.transform)} pour meilleur performance");
+            gameManager = FindFirstObjectByType<GameManager>();
+        }
         assignGameObject();
     }
 
@@ -60,6 +69,7 @@ public class Vacuum : MonoBehaviour
         rbObject.isKinematic = true;
         rbObject.detectCollisions = false;
         capturing = true;
+        rbObject.GetComponent<EnemyBehaviour>().LaunchNextMinigame();
     }
 
     //Accroche l'objet au bout de l'arme lorsqu'il est assez prêt pour la capture
@@ -79,7 +89,12 @@ public class Vacuum : MonoBehaviour
         {
             Debug.LogError("CannonOrientation introuvable!");
         }
-        lockPosition = transform.Find("LockPosition")?.gameObject;
+        else
+        {
+            //Assigne l'orientation Canon VR ou pas dans le gameManager pour réutiliser dans d'autres script
+            gameManager.setCannonOrientation(cannonOrientation);
+        }
+            lockPosition = transform.Find("LockPosition")?.gameObject;
         if (lockPosition == null)
         {
             Debug.LogError("LockPosition introuvable!");

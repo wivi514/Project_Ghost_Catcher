@@ -11,28 +11,21 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
     private float angleThreshold = 5f;
     private bool successTriggered = false;
 
-    [Tooltip("Mettre l'orientation du canon de l'aspirateur dans cette variable")]
-    [SerializeField] Transform vacuumCannonOrientationTransform;
-    [SerializeField] MinigameUIManager minigameUIManager;
+    private Transform cannonOrientation;
+    private MinigameUIManager minigameUIManager;
     private TargetDirection targetDirection;
 
     private enum TargetDirection { Up, Down, Left, Right }
 
     public void Awake()
     {
-        if (vacuumCannonOrientationTransform == null || minigameUIManager == null)
+        if (minigameUIManager == null)
         {
-            if(vacuumCannonOrientationTransform == null && minigameUIManager == null)
+            Debug.LogWarning($"Mettre la référence pour minigameUIManager sur {TransformUtils.GetFullPath(this.transform)} pour meilleur performance");
+            minigameUIManager = FindFirstObjectByType<MinigameUIManager>();
+            if(minigameUIManager == null)
             {
-                Debug.LogError("Mettre les références pour l'orientation du cannon et pour minigameUIManager");
-            }
-            else if(minigameUIManager == null)
-            {
-                Debug.LogError("Mettre la référence pour minigameUIManager");
-            }
-            else
-            {
-                Debug.LogError("Mettre la référence pour l'orientation du cannon");
+                Debug.LogError("Ajouter minigameUIManager à la scène");
             }
         }
     }
@@ -42,7 +35,7 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
         duration = data.duration;
         completed = false;
 
-        initialForward = vacuumCannonOrientationTransform.forward.normalized;
+        initialForward = cannonOrientation.forward.normalized;
         //Prend aléatoirement la direction dans lequel le mini-jeu va demander au joueur de tourner l'arme
         targetDirection = (TargetDirection)Random.Range(0, 4);
         Debug.Log($"[ResistanceMinigame] Diriger l'arme vers : {targetDirection} (±{requiredAngle}°)");
@@ -54,29 +47,33 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
     {
         if (completed || successTriggered) return;
 
-        Vector3 currentForward = vacuumCannonOrientationTransform.forward.normalized;
+        Vector3 currentForward = cannonOrientation.forward.normalized;
 
         // Angle entre direction initiale et actuelle
         float angle = Vector3.Angle(initialForward, currentForward);
 
         // Direction du changement
         Vector3 rotationOffset = currentForward - initialForward;
-        Vector3 localOffset = vacuumCannonOrientationTransform.InverseTransformDirection(rotationOffset).normalized;
+        Vector3 localOffset = cannonOrientation.InverseTransformDirection(rotationOffset).normalized;
 
         bool directionMatch = false;
 
         switch (targetDirection)
         {
             case TargetDirection.Up:
+                minigameUIManager.ResistanceUI((int)targetDirection);
                 directionMatch = localOffset.y > 0.5f;
                 break;
             case TargetDirection.Down:
+                minigameUIManager.ResistanceUI((int)targetDirection);
                 directionMatch = localOffset.y < -0.5f;
                 break;
             case TargetDirection.Left:
+                minigameUIManager.ResistanceUI((int)targetDirection);
                 directionMatch = localOffset.x < -0.5f;
                 break;
             case TargetDirection.Right:
+                minigameUIManager.ResistanceUI((int)targetDirection);
                 directionMatch = localOffset.x > 0.5f;
                 break;
         }
@@ -103,8 +100,16 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
     private void CompleteMinigame()
     {
         completed = true;
+        minigameUIManager.clearMinigameUI();
+        ScoreManager.addScore(100);
         Destroy(this);
     }
 
     public bool IsComplete() => completed;
+
+    public void SetCannonAndUI(GameObject cannonOrientation, MinigameUIManager minigameUIManager)
+    {
+        this.cannonOrientation = cannonOrientation.transform;
+        this.minigameUIManager = minigameUIManager;
+    }
 }

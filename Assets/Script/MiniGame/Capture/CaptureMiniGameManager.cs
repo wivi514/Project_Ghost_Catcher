@@ -2,6 +2,38 @@ using UnityEngine;
 
 public class CaptureMiniGameManager : MonoBehaviour
 {
+    private GameObject cannonOrientation;
+    private MinigameUIManager minigameUIManager;
+    private GameManager gameManager;
+
+    private void Awake()
+    {
+        gameManager = GetComponent<GameManager>();
+        minigameUIManager = FindFirstObjectByType<MinigameUIManager>();
+        #region Verification
+        if (minigameUIManager == null || gameManager == null)
+        {
+            if(minigameUIManager == null && gameManager == null)
+            {
+                Debug.LogError("Mettre minigameUIManager et GameManager dans la scène");
+            }
+            else if (minigameUIManager == null)
+            {
+                Debug.LogError("Mettre minigameUIManager dans la scène");
+            }
+            else
+            {
+                Debug.LogError("Mettre GameManager dans la scène");
+            }
+        }
+        #endregion
+    }
+
+    private void Start()
+    {
+        cannonOrientation = gameManager.getCannonOrientation();
+    }
+
     public void LaunchMinigame(CaptureMinigameData data, GameObject ghost)
     {
         ICaptureMinigame minigame = null;
@@ -9,12 +41,11 @@ public class CaptureMiniGameManager : MonoBehaviour
         switch (data.captureMinigameType)
         {
             case CaptureMinigameType.Resistance:
-                Debug.LogWarning("Ajouter mini jeu Resistance");
                 minigame = ghost.AddComponent<ResistanceMinigame>();
+                ghost.GetComponent<ResistanceMinigame>().SetCannonAndUI(cannonOrientation, minigameUIManager);
                 break;
             case CaptureMinigameType.TargetingTrap:
-                // À ajouter
-                //minigame = ghost.AddComponent<TargetingTrapMiniGame>();
+                minigame = ghost.AddComponent<TargetingTrapMiniGame>();
                 Debug.LogWarning("Ajouter TargetingTrapMiniGame");
                 break;
         }
