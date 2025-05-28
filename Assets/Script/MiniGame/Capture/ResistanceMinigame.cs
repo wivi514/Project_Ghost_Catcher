@@ -12,17 +12,37 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
     private bool successTriggered = false;
 
     [Tooltip("Mettre l'orientation du canon de l'aspirateur dans cette variable")]
-    [SerializeField] Transform vacuumTransform;
+    [SerializeField] Transform vacuumCannonOrientationTransform;
+    [SerializeField] MinigameUIManager minigameUIManager;
     private TargetDirection targetDirection;
 
     private enum TargetDirection { Up, Down, Left, Right }
+
+    public void Awake()
+    {
+        if (vacuumCannonOrientationTransform == null || minigameUIManager == null)
+        {
+            if(vacuumCannonOrientationTransform == null && minigameUIManager == null)
+            {
+                Debug.LogError("Mettre les références pour l'orientation du cannon et pour minigameUIManager");
+            }
+            else if(minigameUIManager == null)
+            {
+                Debug.LogError("Mettre la référence pour minigameUIManager");
+            }
+            else
+            {
+                Debug.LogError("Mettre la référence pour l'orientation du cannon");
+            }
+        }
+    }
 
     public void Init(CaptureMinigameData data, GameObject ghost)
     {
         duration = data.duration;
         completed = false;
 
-        initialForward = vacuumTransform.forward.normalized;
+        initialForward = vacuumCannonOrientationTransform.forward.normalized;
         //Prend aléatoirement la direction dans lequel le mini-jeu va demander au joueur de tourner l'arme
         targetDirection = (TargetDirection)Random.Range(0, 4);
         Debug.Log($"[ResistanceMinigame] Diriger l'arme vers : {targetDirection} (±{requiredAngle}°)");
@@ -34,14 +54,14 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
     {
         if (completed || successTriggered) return;
 
-        Vector3 currentForward = vacuumTransform.forward.normalized;
+        Vector3 currentForward = vacuumCannonOrientationTransform.forward.normalized;
 
         // Angle entre direction initiale et actuelle
         float angle = Vector3.Angle(initialForward, currentForward);
 
         // Direction du changement
         Vector3 rotationOffset = currentForward - initialForward;
-        Vector3 localOffset = vacuumTransform.InverseTransformDirection(rotationOffset).normalized;
+        Vector3 localOffset = vacuumCannonOrientationTransform.InverseTransformDirection(rotationOffset).normalized;
 
         bool directionMatch = false;
 
