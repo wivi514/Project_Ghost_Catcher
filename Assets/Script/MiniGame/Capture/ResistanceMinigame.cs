@@ -102,7 +102,7 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
         completed = true;
         minigameUIManager.clearMinigameUI();
         ScoreManager.addScore(100);
-        Destroy(this);
+        this.gameObject.GetComponent<EnemyBehaviour>().LaunchNextMinigame();
     }
 
     public bool IsComplete() => completed;

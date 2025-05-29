@@ -12,7 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/WilliamTest.unity
     guid: 1565cd2d757061940abb1744dc82bcdc
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 8cfddb78bbbdce646812dc735e77ea4f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: 273c2e42538e53f48af9d9c25be9431e, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: bc3fd4643722cc749ad195293d106d2c, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: a1cd96802c13c49459e9a2c755a0e3fd, type: 2}
   m_UseUCBPForAssetBundles: 0
