@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour
 
     private InputAction moveAction;
     private InputAction shootAction;
+    private InputAction pauseAction;
 
     private Vector2 m_moveAmt;
     [SerializeField] PlayerMovement playerMovement;
@@ -16,32 +17,25 @@ public class InputManager : MonoBehaviour
     [SerializeField] Vacuum vacuumVR;
     [SerializeField] Camera flatscreenPlayerCamera;
 
+    [Header("UI")]
+    [SerializeField] PauseMenu pauseMenu;
+
     private bool isVR;
 
     private void OnEnable()
     {
-        InputActions.FindActionMap("Player").Enable();
+        EnablePlayerActionMap();
     }
 
     private void OnDisable()
     {
-        InputActions.FindActionMap("Player").Disable();
+        DisablePlayerActionMap();
     }
 
     private void Awake()
     {
-        //Regarde si le joueur est en vr lorsque le jeu est lancé
-        isVR = XRGeneralSettings.Instance.Manager.isInitializationComplete;
-        //Trouve la caméra et prend le component player movement si le joueur n'est pas en vr
-        if (isVR == false)
-        {
-            vacuum = vacuumFlatScreen;
-            HideCursor();
-        }
-        else
-        {
-            vacuum = vacuumVR;
-        }
+        VrVerification();
+        UIVerification();
         FindAction();
     }
 
@@ -59,6 +53,12 @@ public class InputManager : MonoBehaviour
             vacuum.Attract();
             Debug.LogWarning("Changer pour que ça soit l'inspiration du patient plutôt qu'une touche");
         }
+
+        if (pauseAction.WasPressedThisFrame())
+        {
+            ShowCursor();
+            pauseMenu.PauseGame();
+        }
     }
 
     private void FixedUpdate()
@@ -75,6 +75,7 @@ public class InputManager : MonoBehaviour
     {
         moveAction = InputSystem.actions.FindAction("Move");
         shootAction = InputSystem.actions.FindAction("Attack");
+        pauseAction = InputSystem.actions.FindAction("Pause");
     }
 
     #region cursor
@@ -87,6 +88,52 @@ public class InputManager : MonoBehaviour
     private void ShowCursor()
     {
         Cursor.visible = true;
+    }
+    #endregion
+
+    #region Verification
+    private void VrVerification()
+    {
+        //Regarde si le joueur est en vr lorsque le jeu est lancé
+        isVR = XRGeneralSettings.Instance.Manager.isInitializationComplete;
+        //Trouve la caméra et prend le component player movement si le joueur n'est pas en vr
+        if (isVR == false)
+        {
+            vacuum = vacuumFlatScreen;
+            HideCursor();
+        }
+        else
+        {
+            vacuum = vacuumVR;
+        }
+    }
+
+    private void UIVerification()
+    {
+        if (pauseMenu == null)
+        {
+            pauseMenu = FindFirstObjectByType<PauseMenu>();
+            Debug.LogWarning($"Ajouter référence à PauseMenu dans {TransformUtils.GetFullPath(this.transform)} pour meilleur performance");
+        }
+    }
+    #endregion
+
+    #region InputMap_Enable/Disable
+    private void EnablePlayerActionMap()
+    {
+        InputActions.FindActionMap("Player").Enable();
+    }
+    private void DisablePlayerActionMap()
+    {
+        InputActions.FindActionMap("Player").Disable();
+    }
+    private void EnableUIActionMap()
+    {
+        InputActions.FindActionMap("UI").Enable();
+    }
+    private void DisableUIActionMap()
+    {
+        InputActions.FindActionMap("UI").Disable();
     }
     #endregion
 }
