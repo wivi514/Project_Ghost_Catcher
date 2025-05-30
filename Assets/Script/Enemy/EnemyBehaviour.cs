@@ -41,6 +41,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Destroy(this.gameObject);
             Debug.LogWarning("Ajouter l'ajout de point pour la capture");
+            Debug.LogWarning("Ajouter VFX pour la capture");
         }
     }
 }
