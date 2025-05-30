@@ -25,6 +25,21 @@ public class PauseMenu : MonoBehaviour
         HideCursor();
     }
 
+    public void Options()
+    {
+
+    }
+
+    public void Help()
+    {
+
+    }
+
+    public void Quit()
+    {
+        
+    }
+
     private void HideCursor()
     {
         Cursor.lockState = CursorLockMode.Confined;
