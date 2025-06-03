@@ -34,6 +34,22 @@ MonoBehaviour:
     m_Localized: Quitter
     m_Metadata:
       m_Items: []
+  - m_Id: 1520586273579008
+    m_Localized: "\xCAtes-vous s\xFBr de vouloir quitter ?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1521275859099648
+    m_Localized: Menu Principal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1521314387976192
+    m_Localized: Bureau
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1521356242935808
+    m_Localized: Annuler
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

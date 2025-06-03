@@ -33,6 +33,22 @@ MonoBehaviour:
     m_Key: Quit
     m_Metadata:
       m_Items: []
+  - m_Id: 1520586273579008
+    m_Key: Quit_Message
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1521275859099648
+    m_Key: Quit_MainMenu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1521314387976192
+    m_Key: Quit_Desktop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1521356242935808
+    m_Key: Quit_Cancel
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
