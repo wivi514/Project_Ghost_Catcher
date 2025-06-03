@@ -81,12 +81,13 @@ public class InputManager : MonoBehaviour
     #region cursor
     private void HideCursor()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     private void ShowCursor()
     {
+        Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
     }
     #endregion
