@@ -1,14 +1,64 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(BoxCollider))]
 public class LevelSelectionUIManager : MonoBehaviour
 {
+    [Header("Base UI")]
     [SerializeField] GameObject levelPanel;
     [SerializeField] GameObject levelCanvas;
+
+    [Header("Gestion des mondes")]
+    [SerializeField] private WorldData[] worlds;
+    [SerializeField] private Button[] worldButtons;
+    [SerializeField] private Button[] levelButtons;
+    [SerializeField] private TextMeshProUGUI[] levelButtonTexts;
 
     private void Awake()
     {
         Verification();
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < worldButtons.Length; i++)
+        {
+            int index = i;
+            worldButtons[i].onClick.AddListener(() => ShowLevels(index));
+        }
+
+        HideAllLevelButtons();
+    }
+
+    private void ShowLevels(int worldIndex)
+    {
+        HideAllLevelButtons();
+        levelPanel.SetActive(true);
+        WorldData selectedWorld = worlds[worldIndex];
+
+        for (int i = 0; i < selectedWorld.levels.Length; i++)
+        {
+            int levelIndex = i;
+            levelButtons[i].gameObject.SetActive(true);
+            levelButtonTexts[i].text = selectedWorld.levels[i].levelName;
+
+            string sceneToLoad = selectedWorld.levels[i].sceneName;
+            levelButtons[i].onClick.RemoveAllListeners();
+            levelButtons[i].onClick.AddListener(() => LoadLevel(sceneToLoad));
+        }
+    }
+
+    private void HideAllLevelButtons()
+    {
+        foreach (var btn in levelButtons)
+            btn.gameObject.SetActive(false);
+    }
+
+    private void LoadLevel(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 
     private void Verification()

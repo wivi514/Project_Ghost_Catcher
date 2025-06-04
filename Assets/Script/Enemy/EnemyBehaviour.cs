@@ -35,7 +35,6 @@ public class EnemyBehaviour : MonoBehaviour
             var minigame = vacuumableObject.captureMinigames[index];
             miniGameManager.LaunchMinigame(minigame, this.gameObject);
             index++;
-            Debug.LogWarning("Changer pour que ça change de mini-jeux aléatoirement lorsque test terminé");
         }
         else
         {
