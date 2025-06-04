@@ -21,8 +21,20 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-fr
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 294536675f6d13042b08c4f3842dd6e3
+    m_Address: MainMenu_fr
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-fr
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 54e9180353cb6c94aab0bfd7cd70e03c
     m_Address: Table_Ghost_Catcher_fr
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-fr
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 61f94066480fb6344af18890554f68e9
+    m_Address: Shop_fr
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-fr
