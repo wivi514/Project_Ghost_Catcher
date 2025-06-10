@@ -12,6 +12,7 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
     private bool successTriggered = false;
 
     private Transform cannonOrientation;
+    private CaptureMiniGameManager captureMiniGameManager;
     private MinigameUIManager minigameUIManager;
     private TargetDirection targetDirection;
 
@@ -19,13 +20,17 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
 
     public void Awake()
     {
-        if (minigameUIManager == null)
+        captureMiniGameManager = FindFirstObjectByType<CaptureMiniGameManager>();
+        if (captureMiniGameManager == null)
         {
-            Debug.LogWarning($"Mettre la référence pour minigameUIManager sur {TransformUtils.GetFullPath(this.transform)} pour meilleur performance");
-            minigameUIManager = FindFirstObjectByType<MinigameUIManager>();
-            if(minigameUIManager == null)
+            Debug.LogError("Ajouter captureMiniGameManager à la scène");
+        }
+        else
+        {
+            minigameUIManager = captureMiniGameManager.minigameUIManager;
+            if (minigameUIManager == null)
             {
-                Debug.LogError("Ajouter minigameUIManager à la scène");
+                Debug.LogError("N'a pas réussi à attribuer minigameUIManager");
             }
         }
     }
