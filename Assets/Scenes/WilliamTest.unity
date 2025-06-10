@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!20 &300987048 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4922195434972923895, guid: 3c67b45634ed0ea45bfdb115cb7605c2, type: 3}
+  m_PrefabInstance: {fileID: 915136843199635280}
+  m_PrefabAsset: {fileID: 0}
 --- !u!20 &330585545 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 786475363178006813, guid: 6b9ff36d224144f4ea7477f1528e4025, type: 3}
@@ -821,18 +826,22 @@ PrefabInstance:
     - target: {fileID: 1334670769159690574, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 300987048}
     - target: {fileID: 1334670769159690574, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
       propertyPath: m_RenderMode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1509248864300336475, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -573
+      value: -177
       objectReference: {fileID: 0}
     - target: {fileID: 1509248864300336475, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2102
+      value: 2089
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509248864300336475, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -460
       objectReference: {fileID: 0}
     - target: {fileID: 1919741486318707729, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
       propertyPath: m_Name
@@ -928,7 +937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3249304026515497583, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 971
+      value: 1136
       objectReference: {fileID: 0}
     - target: {fileID: 3249304026515497583, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1319,6 +1328,14 @@ PrefabInstance:
     - target: {fileID: 1396530651123128281, guid: 3c67b45634ed0ea45bfdb115cb7605c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023635116637560494, guid: 3c67b45634ed0ea45bfdb115cb7605c2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023635116637560494, guid: 3c67b45634ed0ea45bfdb115cb7605c2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.43
       objectReference: {fileID: 0}
     - target: {fileID: 6528670013537183020, guid: 3c67b45634ed0ea45bfdb115cb7605c2, type: 3}
       propertyPath: gameManager
