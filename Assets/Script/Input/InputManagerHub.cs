@@ -9,6 +9,7 @@ public class InputManagerHub : MonoBehaviour
     private InputAction moveAction;
     private InputAction shootAction;
     private InputAction pauseAction;
+    private InputAction interactAction;
 
     private Vector2 m_moveAmt;
     [SerializeField] PlayerMovement playerMovement;
@@ -16,6 +17,7 @@ public class InputManagerHub : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] PauseMenu pauseMenu;
+    [SerializeField] CenterScreenRaycaster centerScreenRaycaster;
 
     private bool isVR;
 
@@ -50,6 +52,11 @@ public class InputManagerHub : MonoBehaviour
             ShowCursor();
             pauseMenu.PauseGame();
         }
+
+        if (interactAction.WasPressedThisFrame())
+        {
+            centerScreenRaycaster.ButtonClick();
+        }
     }
 
     private void FixedUpdate()
@@ -67,6 +74,7 @@ public class InputManagerHub : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         shootAction = InputSystem.actions.FindAction("Attack");
         pauseAction = InputSystem.actions.FindAction("Pause");
+        interactAction = InputSystem.actions.FindAction("Interact");
     }
 
     #region cursor
@@ -96,6 +104,14 @@ public class InputManagerHub : MonoBehaviour
         {
             pauseMenu = FindFirstObjectByType<PauseMenu>();
             Debug.LogWarning($"Ajouter référence à PauseMenu dans {TransformUtils.GetFullPath(this.transform)} pour meilleur performance");
+        }
+        if (isVR == false)
+        {
+            if (centerScreenRaycaster == null)
+            {
+                centerScreenRaycaster = FindFirstObjectByType<CenterScreenRaycaster>();
+                Debug.LogWarning($"Ajouter référence à centerScreenRaycaster dans {TransformUtils.GetFullPath(this.transform)} pour meilleur performance");
+            }
         }
     }
     #endregion
