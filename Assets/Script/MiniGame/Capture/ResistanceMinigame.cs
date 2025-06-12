@@ -4,6 +4,7 @@ using UnityEngine;
 public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
 {
     private float duration;
+    private int repeat;
     private bool completed;
 
     private Vector3 initialForward;
@@ -38,19 +39,17 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
     public void Init(CaptureMinigameData data, GameObject ghost)
     {
         duration = data.duration;
+        repeat = data.repeat;
         completed = false;
 
         initialForward = cannonOrientation.forward.normalized;
-        //Prend aléatoirement la direction dans lequel le mini-jeu va demander au joueur de tourner l'arme
-        targetDirection = (TargetDirection)Random.Range(0, 4);
-        Debug.Log($"[ResistanceMinigame] Diriger l'arme vers : {targetDirection} (±{requiredAngle}°)");
-        Debug.LogWarning("Ajouter UI selon la direction");
-        StartCoroutine(ResistanceTimer());
+        
+        StartCoroutine(RepeatResistanceMinigame());
     }
 
     private void Update()
     {
-        if (completed || successTriggered) return;
+        if (successTriggered) return;
 
         Vector3 currentForward = cannonOrientation.forward.normalized;
 
@@ -87,20 +86,40 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
         {
             successTriggered = true;
             Debug.Log("[ResistanceMinigame] Réussi !");
-            CompleteMinigame();
+            //CompleteMinigame();
         }
 
     }
 
-    private IEnumerator ResistanceTimer()
+    private IEnumerator RepeatResistanceMinigame()
     {
-        yield return new WaitForSeconds(duration);
-        if (!successTriggered)
+        for (int i = 0; i < repeat; i++)
         {
-            Debug.Log("[ResistanceMinigame] Échec.");
+            successTriggered = false;
+
+            //Prend aléatoirement la direction dans lequel le mini-jeu va demander au joueur de tourner l'arme
+            targetDirection = (TargetDirection)Random.Range(0, 4);
+            Debug.Log($"[ResistanceMinigame] Étape {i + 1}/{repeat} : Diriger l'arme vers {targetDirection}");
+
+            float elapsed = 0f;
+            while (elapsed < duration && !successTriggered)
+            {
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            if (!successTriggered)
+            {
+                Debug.Log($"[ResistanceMinigame] Échec à l'étape {i + 1}/{repeat}");
+                break; // sort de la boucle si le joueur échoue une étape
+            }
+
+            yield return new WaitForSeconds(0.5f); // petite pause entre les répétitions
         }
+
         CompleteMinigame();
     }
+
 
     private void CompleteMinigame()
     {
