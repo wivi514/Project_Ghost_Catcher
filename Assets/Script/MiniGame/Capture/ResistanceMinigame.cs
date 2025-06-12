@@ -8,7 +8,7 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
     private bool completed;
 
     private Vector3 initialForward;
-    private float requiredAngle = 45f;
+    private float requiredAngle = 30f;
     private float angleThreshold = 5f;
     private bool successTriggered = false;
 
@@ -16,6 +16,7 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
     private CaptureMiniGameManager captureMiniGameManager;
     private MinigameUIManager minigameUIManager;
     private TargetDirection targetDirection;
+    private TargetDirection lastDirection = (TargetDirection)(-1); // valeur invalide au départ
 
     private enum TargetDirection { Up, Down, Left, Right }
 
@@ -34,6 +35,7 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
                 Debug.LogError("N'a pas réussi à attribuer minigameUIManager");
             }
         }
+        Debug.LogWarning("Modifier fonctionnement ResistanceMiniGame pour direction Up et Down");
     }
 
     public void Init(CaptureMinigameData data, GameObject ghost)
@@ -97,8 +99,17 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
         {
             successTriggered = false;
 
-            //Prend aléatoirement la direction dans lequel le mini-jeu va demander au joueur de tourner l'arme
-            targetDirection = (TargetDirection)Random.Range(0, 4);
+            //Prend aléatoirement la direction dans lequel le mini-jeu va demander au joueur de tourner l'arme et fait en sorte que ça ne soit pas la même que la précédente
+            /*do
+            {
+                //Remettre Range (0, 4) quand Up et Down Fix
+                targetDirection = (TargetDirection)Random.Range(2, 4);
+            } while (targetDirection == lastDirection);*/
+
+            // Enlever quand Up et down est fix et enlever commentaire en haut
+            targetDirection = (TargetDirection)Random.Range(2, 4);
+            lastDirection = targetDirection;
+
             Debug.Log($"[ResistanceMinigame] Étape {i + 1}/{repeat} : Diriger l'arme vers {targetDirection}");
 
             float elapsed = 0f;
