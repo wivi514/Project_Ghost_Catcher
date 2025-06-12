@@ -5,6 +5,8 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] Transform pauseUI;
     [SerializeField] Transform quitPanel;
+
+    private bool isPaused = false;
     private void Awake()
     {
         if (pauseUI == null)
@@ -21,12 +23,21 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
-        Time.timeScale = 0;
-        pauseUI.gameObject.SetActive(true);
+        if (isPaused)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            isPaused = true;
+            Time.timeScale = 0;
+            pauseUI.gameObject.SetActive(true);
+        }
     }
 
     public void ResumeGame()
     {
+        isPaused = false;
         Time.timeScale = 1;
         pauseUI.gameObject.SetActive(false);
         HideCursor();
@@ -49,6 +60,7 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitMainMenu()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
     }
 

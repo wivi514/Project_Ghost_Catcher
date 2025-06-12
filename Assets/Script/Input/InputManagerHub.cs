@@ -10,6 +10,7 @@ public class InputManagerHub : MonoBehaviour
     private InputAction shootAction;
     private InputAction pauseAction;
     private InputAction interactAction;
+    private VRInteractionUI vrInteractionUI;
 
     private Vector2 m_moveAmt;
     [SerializeField] PlayerMovement playerMovement;
@@ -55,7 +56,14 @@ public class InputManagerHub : MonoBehaviour
 
         if (interactAction.WasPressedThisFrame())
         {
-            centerScreenRaycaster.ButtonClick();
+            if (!isVR)
+            {
+                centerScreenRaycaster.ButtonClick();
+            }
+            else
+            {
+                vrInteractionUI.TryInteractWithUI();
+            }
         }
     }
 
@@ -96,6 +104,7 @@ public class InputManagerHub : MonoBehaviour
     {
         //Regarde si le joueur est en vr lorsque le jeu est lancé
         isVR = XRGeneralSettings.Instance.Manager.isInitializationComplete;
+        vrInteractionUI = FindFirstObjectByType<VRInteractionUI>();
     }
 
     private void UIVerification()

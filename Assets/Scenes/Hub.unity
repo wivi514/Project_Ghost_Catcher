@@ -4193,6 +4193,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5894024941257612875, guid: 6da8e513753590944913b34deb83a7d2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1512415304}
+    - targetCorrespondingSourceObject: {fileID: 5894024941257612875, guid: 6da8e513753590944913b34deb83a7d2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1512415305}
   m_SourcePrefab: {fileID: 100100000, guid: 6da8e513753590944913b34deb83a7d2, type: 3}
 --- !u!1 &1200095081
 GameObject:
@@ -4549,6 +4552,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 165, y: 35, z: 6.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1283652707 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1670256624, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 64801683}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1283652708 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 202364687, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 64801683}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1350956540
 GameObject:
   m_ObjectHideFlags: 0
@@ -5186,6 +5199,24 @@ MonoBehaviour:
   flatscreenPlayerCamera: {fileID: 2023218166}
   pauseMenu: {fileID: 472245399}
   centerScreenRaycaster: {fileID: 0}
+--- !u!114 &1512415305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512415301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dacca2c94cbdab498fd8abeb83c6fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftController: {fileID: 1283652708}
+  rightController: {fileID: 1283652707}
+  uiLayerMask:
+    serializedVersion: 2
+    m_Bits: 32
+  maxDistance: 10
 --- !u!1 &1589407721
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,6 +33,10 @@ public class EnemyBehaviour : MonoBehaviour
         if (index < vacuumableObject.captureMinigames.Count)
         {
             var minigame = vacuumableObject.captureMinigames[index];
+            if(minigame == null)
+            {
+                Debug.LogError("Minigame est null");
+            }
             miniGameManager.LaunchMinigame(minigame, this.gameObject);
             index++;
         }
