@@ -798,8 +798,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c12d95221c9bb4e9cd5a6068a29757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   range: 15
   pullSpeed: 15
+  cannonOrientation: {fileID: 0}
 --- !u!136 &583240676
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1252,8 +1254,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c12d95221c9bb4e9cd5a6068a29757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   range: 15
   pullSpeed: 15
+  cannonOrientation: {fileID: 0}
 --- !u!1 &1709211589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1450,6 +1454,7 @@ MonoBehaviour:
   flatPlayer: {fileID: 1043972306}
   xrRig: {fileID: 1189049640}
   flatscreenCamera: {fileID: 887809141}
+  isVR: 0
 --- !u!4 &1756732149
 Transform:
   m_ObjectHideFlags: 0
@@ -1758,6 +1763,8 @@ MonoBehaviour:
   playerMovement: {fileID: 1043972308}
   vacuumFlatScreen: {fileID: 1544992258}
   vacuumVR: {fileID: 583240675}
+  flatscreenPlayerCamera: {fileID: 0}
+  pauseMenu: {fileID: 0}
 --- !u!4 &2109430084
 Transform:
   m_ObjectHideFlags: 0
