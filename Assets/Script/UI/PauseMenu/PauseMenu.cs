@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] Transform pauseUI;
+    [SerializeField] GameObject PauseCanvas;
+    [SerializeField] GameObject OptionsCanvas;
+    [SerializeField] GameObject HelpCanvas;
     [SerializeField] Transform quitPanel;
 
     private bool isPaused = false;
@@ -39,18 +42,29 @@ public class PauseMenu : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = 1;
+        CloseAllPanel();
         pauseUI.gameObject.SetActive(false);
         HideCursor();
     }
 
     public void Options()
     {
-
+        PauseCanvas.SetActive(false);
+        OptionsCanvas.SetActive(true);
     }
 
     public void Help()
     {
+        PauseCanvas.SetActive(false);
+        HelpCanvas.SetActive(true);
+    }
 
+    public void CloseAllPanel()
+    {
+        OptionsCanvas.SetActive(false);
+        HelpCanvas.SetActive(false);
+        quitPanel.gameObject.SetActive(false);
+        PauseCanvas.SetActive(true);
     }
 
     public void QuitConfirmPanel()

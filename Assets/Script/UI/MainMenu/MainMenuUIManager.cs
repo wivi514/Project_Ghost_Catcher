@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuUIManager : MonoBehaviour
 {
+    [SerializeField] GameObject MainMenuCanvas;
+    [SerializeField] GameObject OptionsCanvas;
     public void NewGame()
     {
         SceneManager.LoadScene(1);
@@ -17,7 +19,14 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void Options()
     {
-        Debug.LogWarning("Ajouter menu options au menu principal");
+        MainMenuCanvas.SetActive(false);
+        OptionsCanvas.SetActive(true);
+    }
+
+    public void CloseOptions()
+    {
+        OptionsCanvas.SetActive(false);
+        MainMenuCanvas.SetActive(true);
     }
 
     public void Quit()
