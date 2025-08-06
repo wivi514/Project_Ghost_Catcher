@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class GraphicsSettingManager : MonoBehaviour
 {
@@ -8,60 +9,86 @@ public class GraphicsSettingManager : MonoBehaviour
     public TMP_Dropdown resolutionDropdown;
 
     private Resolution[] availableResolutions;
+    private SaveData saveData;
 
     void Start()
     {
-        //Qualité graphique
+        // Charger les données sauvegardées
+        saveData = SaveSystem.Load();
+
+        // === QUALITÉ ===
         qualityDropdown.ClearOptions();
-        qualityDropdown.AddOptions(new System.Collections.Generic.List<string> { "Low", "Medium", "High" });
-        qualityDropdown.value = QualitySettings.GetQualityLevel();
+        var qualityOptions = new List<string> { "Low", "Medium", "High" };
+        qualityDropdown.AddOptions(qualityOptions);
+
+        // Appliquer la qualité sauvegardée (ou défaut High)
+        int qualityIndex = Mathf.Clamp(qualityOptions.IndexOf(saveData.quality), 0, 2);
+        qualityDropdown.value = qualityIndex;
         qualityDropdown.RefreshShownValue();
-        qualityDropdown.onValueChanged.AddListener(SetQuality);
+        QualitySettings.SetQualityLevel(qualityIndex);
 
-        //Mode d'affichage
-        displayModeDropdown.ClearOptions();
-        displayModeDropdown.AddOptions(new System.Collections.Generic.List<string> { "Fullscreen", "Windowed", "Fullscreen Windowed" });
-
-        int currentModeIndex = Screen.fullScreenMode switch
+        qualityDropdown.onValueChanged.AddListener(index =>
         {
-            FullScreenMode.ExclusiveFullScreen => 0,
-            FullScreenMode.Windowed => 1,
-            FullScreenMode.FullScreenWindow => 2,
-            _ => 0
-        };
-        displayModeDropdown.value = currentModeIndex;
-        displayModeDropdown.RefreshShownValue();
-        displayModeDropdown.onValueChanged.AddListener(SetDisplayMode);
+            saveData.quality = qualityOptions[index];
+            QualitySettings.SetQualityLevel(index);
+            SaveSystem.Save(saveData);
+        });
 
-        //Résolutions
+        // === MODE D'AFFICHAGE ===
+        displayModeDropdown.ClearOptions();
+        var modeOptions = new List<string> { "Fullscreen", "Windowed", "Fullscreen Windowed" };
+        displayModeDropdown.AddOptions(modeOptions);
+
+        int displayIndex = saveData.fullscreen switch
+        {
+            true when Screen.fullScreenMode == FullScreenMode.FullScreenWindow => 2,
+            true => 0,
+            false => 1
+        };
+
+        displayModeDropdown.value = displayIndex;
+        displayModeDropdown.RefreshShownValue();
+        ApplyDisplayMode(displayIndex);
+
+        displayModeDropdown.onValueChanged.AddListener(index =>
+        {
+            ApplyDisplayMode(index);
+            saveData.fullscreen = index != 1; // windowed = false
+            SaveSystem.Save(saveData);
+        });
+
+        // === RÉSOLUTION ===
         resolutionDropdown.ClearOptions();
         availableResolutions = Screen.resolutions;
 
-        var options = new System.Collections.Generic.List<string>();
-        int currentResIndex = 0;
+        var resOptions = new List<string>();
+        int resIndex = 0;
 
         for (int i = 0; i < availableResolutions.Length; i++)
         {
             var res = availableResolutions[i];
             string option = res.width + " x " + res.height;
-            options.Add(option);
+            resOptions.Add(option);
 
-            if (res.width == Screen.currentResolution.width && res.height == Screen.currentResolution.height)
-                currentResIndex = i;
+            if (res.width == saveData.resolutionWidth && res.height == saveData.resolutionHeight)
+                resIndex = i;
         }
 
-        resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResIndex;
+        resolutionDropdown.AddOptions(resOptions);
+        resolutionDropdown.value = resIndex;
         resolutionDropdown.RefreshShownValue();
-        resolutionDropdown.onValueChanged.AddListener(SetResolution);
+        ApplyResolution(resIndex);
+
+        resolutionDropdown.onValueChanged.AddListener(index =>
+        {
+            ApplyResolution(index);
+            saveData.resolutionWidth = availableResolutions[index].width;
+            saveData.resolutionHeight = availableResolutions[index].height;
+            SaveSystem.Save(saveData);
+        });
     }
 
-    void SetQuality(int index)
-    {
-        QualitySettings.SetQualityLevel(index, true);
-    }
-
-    void SetDisplayMode(int index)
+    void ApplyDisplayMode(int index)
     {
         switch (index)
         {
@@ -77,7 +104,7 @@ public class GraphicsSettingManager : MonoBehaviour
         }
     }
 
-    void SetResolution(int index)
+    void ApplyResolution(int index)
     {
         Resolution res = availableResolutions[index];
         Screen.SetResolution(res.width, res.height, Screen.fullScreenMode);
