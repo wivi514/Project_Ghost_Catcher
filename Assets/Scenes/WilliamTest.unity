@@ -8,8 +8,8 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 1565cd2d757061940abb1744dc82bcdc
+  m_OcclusionCullingData: {fileID: 36300000, guid: 4c003383edeb40c4d8c4bacff454fbd1, type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -5921,6 +5921,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 2282209481748769696, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
+      propertyPath: m_Name
+      value: ScoreVR
+      objectReference: {fileID: 0}
     - target: {fileID: 3136439154078611263, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -8312,6 +8316,10 @@ PrefabInstance:
     - target: {fileID: 1919741486318707729, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2282209481748769696, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
+      propertyPath: m_Name
+      value: ScoreFlat
       objectReference: {fileID: 0}
     - target: {fileID: 3191449892111304299, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
       propertyPath: m_LocalPosition.x
