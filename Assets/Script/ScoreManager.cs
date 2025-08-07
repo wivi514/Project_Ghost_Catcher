@@ -6,6 +6,8 @@ public static class ScoreManager
 
     public static int CurrentScore => score;
 
+    public static int GetScore() {  return score; }
+
     public static void addScore(int amount)
     {
         score += amount;

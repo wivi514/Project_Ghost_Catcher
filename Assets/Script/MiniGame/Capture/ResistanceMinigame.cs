@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
 {
@@ -17,6 +18,8 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
     private MinigameUIManager minigameUIManager;
     private TargetDirection targetDirection;
     private TargetDirection lastDirection = (TargetDirection)(-1); // valeur invalide au départ
+
+    private TMP_Text scoreFlat; // à changer
 
     private enum TargetDirection { Up, Down, Left, Right }
 
@@ -36,6 +39,8 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
             }
         }
         Debug.LogWarning("Modifier fonctionnement ResistanceMiniGame pour direction Up et Down");
+
+        scoreFlat = GameObject.Find("ScoreFlat").GetComponent<TMP_Text>();
     }
 
     public void Init(CaptureMinigameData data, GameObject ghost)
@@ -137,6 +142,7 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
         completed = true;
         minigameUIManager.clearMinigameUI();
         ScoreManager.addScore(100);
+        scoreFlat.text = $"{ScoreManager.GetScore()}";
         this.gameObject.GetComponent<EnemyBehaviour>().LaunchNextMinigame();
     }
 
