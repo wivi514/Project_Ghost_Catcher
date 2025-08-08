@@ -8396,10 +8396,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 2282209481748769696, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
-      propertyPath: m_Name
-      value: ScoreFlat
-      objectReference: {fileID: 0}
     - target: {fileID: 3191449892111304299, guid: bc5832da57f87ac4ebb657967105eff2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.42
@@ -8453,6 +8449,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 954162895771730205, guid: d0b7243bec233b44f9c8ab4dd75a19a8, type: 3}
+      propertyPath: m_Constraints
+      value: 78
+      objectReference: {fileID: 0}
     - target: {fileID: 1419416403808300454, guid: d0b7243bec233b44f9c8ab4dd75a19a8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
