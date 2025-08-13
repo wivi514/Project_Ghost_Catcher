@@ -7903,9 +7903,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR
       objectReference: {fileID: 0}
+    - target: {fileID: 6005761888013069529, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005761888013069529, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005761888013069529, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005761888013069529, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1213
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005761888013069529, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 518
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005761888013069529, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5909644341304431969, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+    - {fileID: 8877743117414361500, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
@@ -8021,6 +8046,10 @@ PrefabInstance:
     - target: {fileID: 1231827218004384581, guid: 6b9ff36d224144f4ea7477f1528e4025, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354115246501663502, guid: 6b9ff36d224144f4ea7477f1528e4025, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3550145724878061083, guid: 6b9ff36d224144f4ea7477f1528e4025, type: 3}
       propertyPath: m_LocalPosition.z
