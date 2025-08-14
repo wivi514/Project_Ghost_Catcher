@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEditor;
 
 public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
 {
@@ -9,7 +10,7 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
     private bool completed;
 
     private Vector3 initialForward;
-    private float requiredAngle = 30f;
+    private float requiredAngle = 28f;
     private float angleThreshold = 5f;
     private bool successTriggered = false;
 
@@ -18,8 +19,9 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
     private MinigameUIManager minigameUIManager;
     private TargetDirection targetDirection;
     private TargetDirection lastDirection = (TargetDirection)(-1); // valeur invalide au départ
+    private GameManager gameManager;
 
-    private TMP_Text scoreFlat; // à changer
+    private TMP_Text score; // à changer
 
     private enum TargetDirection { Up, Down, Left, Right }
 
@@ -40,7 +42,18 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
         }
         Debug.LogWarning("Modifier fonctionnement ResistanceMiniGame pour direction Up et Down");
 
-        scoreFlat = GameObject.Find("ScoreFlat").GetComponent<TMP_Text>();
+        gameManager = FindFirstObjectByType<GameManager>();
+
+        if (gameManager.isVR)
+        {
+            score = GameObject.Find("ScoreVR").GetComponent<TMP_Text>();
+        }
+        else
+        {
+            score = GameObject.Find("ScoreFlat").GetComponent<TMP_Text>();
+        }
+
+            
     }
 
     public void Init(CaptureMinigameData data, GameObject ghost)
@@ -104,15 +117,25 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
         {
             successTriggered = false;
 
-            //Prend aléatoirement la direction dans lequel le mini-jeu va demander au joueur de tourner l'arme et fait en sorte que ça ne soit pas la même que la précédente
-            /*do
+            do
             {
-                //Remettre Range (0, 4) quand Up et Down Fix
-                targetDirection = (TargetDirection)Random.Range(2, 4);
-            } while (targetDirection == lastDirection);*/
+                targetDirection = (TargetDirection)Random.Range(0, 4);
+                if (targetDirection == TargetDirection.Up)
+                {
+                    if (cannonOrientation.transform.rotation.eulerAngles.x > 322 )
+                    {
+                        targetDirection = lastDirection;
+                    }
+                }
+                else if(targetDirection == TargetDirection.Down)
+                {
+                    if (cannonOrientation.transform.rotation.eulerAngles.x < 38)
+                    {
+                        targetDirection = lastDirection;
+                    }
+                }
+            } while (targetDirection == lastDirection);
 
-            // Enlever quand Up et down est fix et enlever commentaire en haut
-            targetDirection = (TargetDirection)Random.Range(2, 4);
             lastDirection = targetDirection;
 
             Debug.Log($"[ResistanceMinigame] Étape {i + 1}/{repeat} : Diriger l'arme vers {targetDirection}");
@@ -142,15 +165,18 @@ public class ResistanceMinigame : MonoBehaviour, ICaptureMinigame
         completed = true;
         minigameUIManager.clearMinigameUI();
         ScoreManager.addScore(100);
-        scoreFlat.text = $"{ScoreManager.GetScore()}";
+        score.text = $"{ScoreManager.GetScore()}";
         this.gameObject.GetComponent<EnemyBehaviour>().LaunchNextMinigame();
     }
+
+
 
     public bool IsComplete() => completed;
 
     public void SetCannonAndUI(GameObject cannonOrientation, MinigameUIManager minigameUIManager)
     {
         this.cannonOrientation = cannonOrientation.transform;
+        Debug.Log(TransformUtils.GetFullPath(this.cannonOrientation.transform));
         this.minigameUIManager = minigameUIManager;
     }
 }

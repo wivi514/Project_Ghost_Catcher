@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
 
     [SerializeField] float walkSpeed = 5f;
-    [SerializeField] float lookRotationSpeed = 30f;
+    [SerializeField] float lookRotationSpeed = 200f;
 
     private void Awake()
     {

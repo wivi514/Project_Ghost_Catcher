@@ -19,4 +19,4 @@ MonoBehaviour:
   captureMinigames:
   - captureMinigameType: 0
     duration: 5
-    repeat: 4
+    repeat: 8
