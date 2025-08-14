@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject flatPlayer;
     [SerializeField] GameObject xrRig;
     [SerializeField] GameObject flatscreenCamera;
+    [SerializeField] GameObject cannonOrientationVR;
+    [SerializeField] GameObject cannonOrientationFlat;
 
     [HideInInspector]
     public bool isVR;
@@ -33,11 +35,9 @@ public class GameManager : MonoBehaviour
                 Debug.LogError($"Mettre la référence pour flatscreenCamera sur {TransformUtils.GetFullPath(this.transform)}");
             }
         }
-        #endregion
-    }
-    void Start()
-    {
         detectVR();
+        setCannonOrientation();
+        #endregion
     }
 
     void detectVR()
@@ -48,9 +48,16 @@ public class GameManager : MonoBehaviour
         flatscreenCamera.SetActive(!isVR);
     }
 
-    public void setCannonOrientation(GameObject cannonOrientation)
+    public void setCannonOrientation()
     {
-        this.cannonOrientation = cannonOrientation;
+        if(isVR)
+        {
+            cannonOrientation = cannonOrientationVR;
+        }
+        else
+        {
+            cannonOrientation = cannonOrientationFlat;
+        }
     }
 
     public GameObject getCannonOrientation()

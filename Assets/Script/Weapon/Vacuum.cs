@@ -27,6 +27,10 @@ public class Vacuum : MonoBehaviour
             Debug.LogWarning($"Assigner la référence à GameManager sur {TransformUtils.GetFullPath(this.transform)} pour meilleur performance");
             gameManager = FindFirstObjectByType<GameManager>();
         }
+    }
+
+    private void Start()
+    {
         assignGameObject();
     }
 
@@ -83,18 +87,12 @@ public class Vacuum : MonoBehaviour
 
     private void assignGameObject()
     {
-        //Recherche CannonOrientation et lockPosition en tant qu'enfant de l'objet et l'applique donc s'assuré qu'il existe bien sinon erreur
-        cannonOrientation = transform.Find("CannonOrientation")?.gameObject;
+        cannonOrientation = gameManager.getCannonOrientation();
         if (cannonOrientation == null)
         {
-            Debug.LogError("CannonOrientation introuvable!");
+            Debug.LogError("cannonOrientation introuvable!");
         }
-        else
-        {
-            //Assigne l'orientation Canon VR ou pas dans le gameManager pour réutiliser dans d'autres script
-            gameManager.setCannonOrientation(cannonOrientation);
-        }
-            lockPosition = transform.Find("LockPosition")?.gameObject;
+        lockPosition = transform.Find("LockPosition")?.gameObject;
         if (lockPosition == null)
         {
             Debug.LogError("LockPosition introuvable!");

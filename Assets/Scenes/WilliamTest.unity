@@ -8179,6 +8179,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6995998271720516341, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+      propertyPath: m_Name
+      value: CannonOrientationVR
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5909644341304431969, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
@@ -8189,6 +8193,11 @@ PrefabInstance:
       addedObject: {fileID: 1032075655}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+--- !u!1 &4772450191276548214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6995998271720516341, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+  m_PrefabInstance: {fileID: 4772450191276548213}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7363917052463751945
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8237,6 +8246,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5270198700133059017, guid: d0b7243bec233b44f9c8ab4dd75a19a8, type: 3}
+      propertyPath: m_Name
+      value: CannonOrientationFlat
+      objectReference: {fileID: 0}
     - target: {fileID: 5624814070545145548, guid: d0b7243bec233b44f9c8ab4dd75a19a8, type: 3}
       propertyPath: m_Name
       value: FlatscreenPlayer
@@ -8253,6 +8266,11 @@ PrefabInstance:
       addedObject: {fileID: 1868460301}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0b7243bec233b44f9c8ab4dd75a19a8, type: 3}
+--- !u!1 &7363917052463751946 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5270198700133059017, guid: d0b7243bec233b44f9c8ab4dd75a19a8, type: 3}
+  m_PrefabInstance: {fileID: 7363917052463751945}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8049427542582100656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8354,6 +8372,14 @@ PrefabInstance:
       propertyPath: flatscreenCamera
       value: 
       objectReference: {fileID: 887809141}
+    - target: {fileID: 2713923345827043386, guid: 4f5dd13dbc8c22240be6338455d8d738, type: 3}
+      propertyPath: cannonOrientationVR
+      value: 
+      objectReference: {fileID: 4772450191276548214}
+    - target: {fileID: 2713923345827043386, guid: 4f5dd13dbc8c22240be6338455d8d738, type: 3}
+      propertyPath: cannonOrientationFlat
+      value: 
+      objectReference: {fileID: 7363917052463751946}
     - target: {fileID: 3612214289926798580, guid: 4f5dd13dbc8c22240be6338455d8d738, type: 3}
       propertyPath: m_Name
       value: GameManager
