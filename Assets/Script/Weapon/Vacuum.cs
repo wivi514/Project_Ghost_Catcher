@@ -10,6 +10,7 @@ public class Vacuum : MonoBehaviour
     [SerializeField] byte range = 15;
     [Tooltip("Force à laquelle l'aspirateur attire des objets")]
     [SerializeField] byte pullSpeed = 15;
+    [SerializeField] private ParticleSystem airVacuum;
 
     //Distance à laquelle l'objet doit être avant qu'il soit accroché à l'aspirateur
     private byte captureDistance = 1;
@@ -42,6 +43,8 @@ public class Vacuum : MonoBehaviour
     //Fonction qui permet d'attirer les objets vers le joueur (Fantôme ou n'importe quoi qui à un component rigidbody)
     public void Attract()
     {
+        bool objectInRange = false;
+
         if ( gameManager.isVR)
         {
             if (capturing != true)
@@ -52,12 +55,14 @@ public class Vacuum : MonoBehaviour
                     rbObject = hit.collider.GetComponent<Rigidbody>();
                     if (rbObject != null) // S'assure qu'il y a un objet à attirer
                     {
+                        objectInRange = true;
+
                         Vector3 pullDirection = (cannonOrientation.transform.position - hit.transform.position).normalized; // Calcule la direction que l'objet doit aller pour aller vers l'aspirateur
                         float distanceToVacuum = Vector3.Distance(hit.transform.position, cannonOrientation.transform.position); //Calcule la distance entre l'objet et l'aspirateur pour savoir quand il doit entrer en mode capture
 
                         if (distanceToVacuum > captureDistance)
                         {
-                            rbObject.AddForce(pullDirection * (pullSpeed / rbObject.mass) * Time.deltaTime, ForceMode.VelocityChange); // Attire l'objet vers le joueur
+                            rbObject.AddForce(pullDirection * (pullSpeed / rbObject.mass) * Time.deltaTime, ForceMode.VelocityChange); // Attire l'objet vers le joueur                          
                         }
                         else
                         {
@@ -78,6 +83,8 @@ public class Vacuum : MonoBehaviour
                     rbObject = hit.collider.GetComponent<Rigidbody>();
                     if (rbObject != null) // S'assure qu'il y a un objet à attirer
                     {
+                        objectInRange = true;
+
                         Vector3 pullDirection = (cannonOrientation.transform.position - hit.transform.position).normalized; // Calcule la direction que l'objet doit aller pour aller vers l'aspirateur
                         float distanceToVacuum = Vector3.Distance(hit.transform.position, cannonOrientation.transform.position); //Calcule la distance entre l'objet et l'aspirateur pour savoir quand il doit entrer en mode capture
 
@@ -93,6 +100,19 @@ public class Vacuum : MonoBehaviour
                 }
             }
         }
+
+        // Démarre le particle system d'aspirateur si l'object est in range
+        if (objectInRange)
+        {
+            if (!airVacuum.isPlaying)
+                airVacuum.Play();
+        }
+        else
+        {
+            if (airVacuum.isPlaying)
+                airVacuum.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+
     }
 
     // Fonction qui permet de faire en sorte que lorsque le fantôme à capturer est assez proche il le bloque à une certaine position

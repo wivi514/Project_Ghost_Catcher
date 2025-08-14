@@ -13,6 +13,6 @@ public class ScoreUI : MonoBehaviour
 
     private void SetScoreText()
     {
-        m_TextMeshPro.text = "score: " + ScoreManager.CurrentScore;
+        m_TextMeshPro.text = "" + ScoreManager.CurrentScore;
     }
 }
