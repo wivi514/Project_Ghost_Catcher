@@ -42,24 +42,53 @@ public class Vacuum : MonoBehaviour
     //Fonction qui permet d'attirer les objets vers le joueur (Fantôme ou n'importe quoi qui à un component rigidbody)
     public void Attract()
     {
-        if (capturing != true)
+        if ( gameManager.isVR)
         {
-            RaycastHit hit;
-            if (Physics.Raycast(cannonOrientation.transform.position, cannonOrientation.transform.forward, out hit, range)) //Lance un raycast ou l'arme pointe
+            if (capturing != true)
             {
-                rbObject = hit.collider.GetComponent<Rigidbody>();
-                if (rbObject != null) // S'assure qu'il y a un objet à attirer
+                RaycastHit hit;
+                if (Physics.Raycast(cannonOrientation.transform.position, cannonOrientation.transform.forward, out hit, range)) //Lance un raycast ou l'arme pointe
                 {
-                    Vector3 pullDirection = (cannonOrientation.transform.position - hit.transform.position).normalized; // Calcule la direction que l'objet doit aller pour aller vers l'aspirateur
-                    float distanceToVacuum = Vector3.Distance(hit.transform.position, cannonOrientation.transform.position); //Calcule la distance entre l'objet et l'aspirateur pour savoir quand il doit entrer en mode capture
+                    rbObject = hit.collider.GetComponent<Rigidbody>();
+                    if (rbObject != null) // S'assure qu'il y a un objet à attirer
+                    {
+                        Vector3 pullDirection = (cannonOrientation.transform.position - hit.transform.position).normalized; // Calcule la direction que l'objet doit aller pour aller vers l'aspirateur
+                        float distanceToVacuum = Vector3.Distance(hit.transform.position, cannonOrientation.transform.position); //Calcule la distance entre l'objet et l'aspirateur pour savoir quand il doit entrer en mode capture
 
-                    if (distanceToVacuum > captureDistance)
-                    {
-                        rbObject.AddForce(pullDirection * (pullSpeed / rbObject.mass) * Time.deltaTime, ForceMode.VelocityChange); // Attire l'objet vers le joueur
+                        if (distanceToVacuum > captureDistance)
+                        {
+                            rbObject.AddForce(pullDirection * (pullSpeed / rbObject.mass) * Time.deltaTime, ForceMode.VelocityChange); // Attire l'objet vers le joueur
+                        }
+                        else
+                        {
+                            CaptureLock();
+                        }
                     }
-                    else
+                }
+            }
+        }
+        else
+        {
+            if (capturing != true)
+            {
+                Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, range)) //Lance un raycast ou le joueur regarde
+                {
+                    rbObject = hit.collider.GetComponent<Rigidbody>();
+                    if (rbObject != null) // S'assure qu'il y a un objet à attirer
                     {
-                        CaptureLock();
+                        Vector3 pullDirection = (cannonOrientation.transform.position - hit.transform.position).normalized; // Calcule la direction que l'objet doit aller pour aller vers l'aspirateur
+                        float distanceToVacuum = Vector3.Distance(hit.transform.position, cannonOrientation.transform.position); //Calcule la distance entre l'objet et l'aspirateur pour savoir quand il doit entrer en mode capture
+
+                        if (distanceToVacuum > captureDistance)
+                        {
+                            rbObject.AddForce(pullDirection * (pullSpeed / rbObject.mass) * Time.deltaTime, ForceMode.VelocityChange); // Attire l'objet vers le joueur
+                        }
+                        else
+                        {
+                            CaptureLock();
+                        }
                     }
                 }
             }
@@ -82,6 +111,10 @@ public class Vacuum : MonoBehaviour
         if (capturing == true && rbObject != null)
         {
                 rbObject.transform.position = lockPosition.transform.position;
+        }
+        else
+        {
+            capturing = false;
         }
     }
 
