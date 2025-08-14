@@ -16130,6 +16130,22 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1756732148}
+    - target: {fileID: 4215681153044822137, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+      propertyPath: arrowUp
+      value: 
+      objectReference: {fileID: 21300000, guid: 8a0d5ca1100de9145be34f0bb6459d09, type: 3}
+    - target: {fileID: 4215681153044822137, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+      propertyPath: arrowDown
+      value: 
+      objectReference: {fileID: 21300000, guid: 6d07d20c2b3750949be7a3f048557b65, type: 3}
+    - target: {fileID: 4215681153044822137, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+      propertyPath: arrowLeft
+      value: 
+      objectReference: {fileID: 21300000, guid: 9034bc13f9716e841aaea1d7fbe65d5f, type: 3}
+    - target: {fileID: 4215681153044822137, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
+      propertyPath: arrowRight
+      value: 
+      objectReference: {fileID: 21300000, guid: eae5a5965e426b4498807b2734b61d9b, type: 3}
     - target: {fileID: 5373388652572912145, guid: 913ae609cc68a1c41ad89a122cb3adf5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
