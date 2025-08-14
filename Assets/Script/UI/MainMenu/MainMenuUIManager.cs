@@ -13,8 +13,7 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void Continue()
     {
-        SceneManager.LoadScene(1);
-        Debug.LogError("Ajouter chargement des données du joueur");
+        Debug.LogError("Pas de données du joueur à charger");
     }
 
     public void Options()
