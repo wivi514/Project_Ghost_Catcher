@@ -385,7 +385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1319723895452324414, guid: 3c67b45634ed0ea45bfdb115cb7605c2, type: 3}
       propertyPath: m_Name
-      value: XR Variant
+      value: XR_Player
       objectReference: {fileID: 0}
     - target: {fileID: 1396530651123128281, guid: 3c67b45634ed0ea45bfdb115cb7605c2, type: 3}
       propertyPath: m_LocalPosition.x
